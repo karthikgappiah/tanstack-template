@@ -1,0 +1,36 @@
+# Dependencies (reinstalled during build)
+node_modules
+
+# Build outputs (regenerated during build)
+.output
+dist
+dist-ssr
+
+# Framework caches
+.nitro
+.tanstack
+.vinxi
+__unconfig*
+
+# Secrets & local overrides
+.env
+*.local
+
+# Version control
+.git
+.gitignore
+
+# Docker self-reference
+Dockerfile
+.dockerignore
+
+# CI/CD
+.github
+
+# Editor & OS artifacts
+.DS_Store
+
+# Docs & misc
+*.md
+count.txt
+todos.json
