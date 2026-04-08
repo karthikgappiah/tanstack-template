@@ -13,11 +13,11 @@
   "iconLibrary": "phosphor",
   "rtl": false,
   "aliases": {
+    "utils": "@/library/utilities/tailwind",
     "components": "@/components",
-    "utils": "@/lib/utils",
     "ui": "@/components/ui",
-    "lib": "@/lib",
-    "hooks": "@/hooks"
+    "lib": "@/library",
+    "hooks": "@/library/hooks"
   },
   "menuColor": "default",
   "menuAccent": "subtle",
