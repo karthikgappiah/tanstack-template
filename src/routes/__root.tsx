@@ -35,7 +35,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className="flex flex-col">
         <TooltipProvider>{children}</TooltipProvider>
         <TanStackDevtools
           config={{
