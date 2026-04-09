@@ -2,7 +2,9 @@ import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router"
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
 import { TanStackDevtools } from "@tanstack/react-devtools"
 
+import { TooltipProvider } from "@/components/ui/tooltip"
 import twcss from "@/styles.css?url"
+import { ThemeProvider } from "@/components/providers/theme-provider"
 
 export const Route = createRootRoute({
   head: () => ({
@@ -34,8 +36,16 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body>
-        {children}
+      <body className="flex flex-col">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TooltipProvider>{children}</TooltipProvider>
+        </ThemeProvider>
+
         <TanStackDevtools
           config={{
             position: "bottom-right",
