@@ -1,5 +1,5 @@
 import { Header } from "@/components/blocks/header"
-import { Button } from "@/components/ui/button"
+import { ModeToggle } from "@/components/blocks/mode-toggle"
 import { createFileRoute } from "@tanstack/react-router"
 
 export const Route = createFileRoute("/")({ component: LandingPage })
@@ -10,7 +10,7 @@ function LandingPage() {
       {/* HEADER */}
       <Header />
       <main className="flex flex-1 items-center justify-center">
-        <Button>Sorry, this webpage is under active development</Button>
+        <ModeToggle />
       </main>
     </div>
   )
