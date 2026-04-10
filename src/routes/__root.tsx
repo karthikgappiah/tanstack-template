@@ -1,6 +1,7 @@
 import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router"
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
 import { TanStackDevtools } from "@tanstack/react-devtools"
+import { FormDevtoolsPanel } from "@tanstack/react-form-devtools"
 
 import { TooltipProvider } from "@/components/ui/tooltip"
 import twcss from "@/styles.css?url"
@@ -17,7 +18,7 @@ export const Route = createRootRoute({
         content: "width=device-width, initial-scale=1",
       },
       {
-        title: "TanStack Template",
+        title: "TODO",
       },
     ],
     links: [
@@ -54,6 +55,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             {
               name: "Tanstack Router",
               render: <TanStackRouterDevtoolsPanel />,
+            },
+            {
+              name: "TanStack Form",
+              render: <FormDevtoolsPanel />,
             },
           ]}
         />
