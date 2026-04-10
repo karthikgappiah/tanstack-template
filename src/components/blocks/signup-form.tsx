@@ -1,10 +1,13 @@
 "use client"
 
+import { useForm } from "@tanstack/react-form"
+
 import { cn } from "@/library/utilities/tailwind"
 import { Button } from "@/components/ui/button"
 import {
   Field,
   FieldDescription,
+  FieldError,
   FieldGroup,
   FieldLabel,
   FieldSeparator,
@@ -16,9 +19,21 @@ export function SignupForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const form = useForm({
+    defaultValues: { email: "" },
+    onSubmit: async ({ value }) => {
+      console.log(value)
+    },
+  })
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          form.handleSubmit()
+        }}
+      >
         <FieldGroup>
           <div className="flex flex-col items-center gap-2 text-center">
             <a
@@ -35,15 +50,41 @@ export function SignupForm({
               Already have an account? <a href="#">Sign in</a>
             </FieldDescription>
           </div>
-          <Field>
-            <FieldLabel htmlFor="email">Email</FieldLabel>
-            <Input
-              id="email"
-              type="email"
-              placeholder="m@example.com"
-              required
-            />
-          </Field>
+          <form.Field
+            name="email"
+            validators={{
+              onChange: ({ value }) =>
+                !value
+                  ? "Email is required"
+                  : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+                    ? "Enter a valid email address"
+                    : undefined,
+            }}
+            children={(field) => {
+              const hasError =
+                field.state.meta.isTouched &&
+                field.state.meta.errors.length > 0
+              return (
+                <Field data-invalid={hasError || undefined}>
+                  <FieldLabel htmlFor="email">Email</FieldLabel>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="m@example.com"
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    aria-invalid={hasError || undefined}
+                  />
+                  <FieldError
+                    errors={field.state.meta.errors.map((e) => ({
+                      message: e,
+                    }))}
+                  />
+                </Field>
+              )
+            }}
+          />
           <Field>
             <Button type="submit">Create Account</Button>
           </Field>
