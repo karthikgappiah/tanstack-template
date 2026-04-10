@@ -1,8 +1,8 @@
-"use client"
-
 import { useForm } from "@tanstack/react-form"
+import { z } from "zod"
 
 import { cn } from "@/library/utilities/tailwind"
+
 import { Button } from "@/components/ui/button"
 import {
   Field,
@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { RowsIcon } from "@phosphor-icons/react"
+
+const email_field_schema = z.email("Enter a valid email address")
 
 export function LoginForm({
   className,
@@ -43,23 +45,16 @@ export function LoginForm({
               <div className="flex size-8 items-center justify-center rounded-md">
                 <RowsIcon className="size-6" />
               </div>
-              <span className="sr-only">Acme Inc.</span>
+              <span className="sr-only">TODO</span>
             </a>
-            <h1 className="text-xl font-bold">Welcome to Acme Inc.</h1>
+            <h1 className="text-xl font-bold">Welcome to TODO</h1>
             <FieldDescription>
               Don&apos;t have an account? <a href="#">Sign up</a>
             </FieldDescription>
           </div>
           <form.Field
             name="email"
-            validators={{
-              onChange: ({ value }) =>
-                !value
-                  ? "Email is required"
-                  : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-                    ? "Enter a valid email address"
-                    : undefined,
-            }}
+            validators={{ onChange: email_field_schema }}
             children={(field) => {
               const hasError =
                 field.state.meta.isTouched && field.state.meta.errors.length > 0
@@ -75,17 +70,13 @@ export function LoginForm({
                     onChange={(e) => field.handleChange(e.target.value)}
                     aria-invalid={hasError || undefined}
                   />
-                  <FieldError
-                    errors={field.state.meta.errors.map((e) => ({
-                      message: e,
-                    }))}
-                  />
+                  <FieldError errors={field.state.meta.errors} />
                 </Field>
               )
             }}
           />
           <Field>
-            <Button type="submit">Login</Button>
+            <Button type="submit">Log in</Button>
           </Field>
           <FieldSeparator>Or</FieldSeparator>
           <Field className="grid gap-4 sm:grid-cols-2">
